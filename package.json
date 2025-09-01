@@ -1,0 +1,54 @@
+{
+  "name": "ai-blog-content-generator",
+  "version": "1.0.0",
+  "description": "AI Blog & Content Generator for Shopify - SEO + AI Search Optimized",
+  "main": "index.js",
+  "scripts": {
+    "dev": "shopify app dev",
+    "build": "shopify app build",
+    "deploy": "shopify app deploy",
+    "config:link": "shopify app config link",
+    "config:use": "shopify app config use",
+    "generate": "shopify app generate",
+    "scaffold": "shopify app scaffold"
+  },
+  "dependencies": {
+    "@shopify/app": "^3.0.0",
+    "@shopify/cli": "^3.0.0",
+    "@shopify/polaris": "^12.0.0",
+    "@shopify/shopify-app-remix": "^2.0.0",
+    "react": "^18.0.0",
+    "react-dom": "^18.0.0",
+    "express": "^4.18.0",
+    "@google/generative-ai": "^0.2.0",
+    "axios": "^1.6.0",
+    "cors": "^2.8.5",
+    "dotenv": "^16.3.0",
+    "jsonwebtoken": "^9.0.0",
+    "bcryptjs": "^2.4.3",
+    "@supabase/supabase-js": "^2.38.0"
+  },
+  "devDependencies": {
+    "@types/node": "^20.0.0",
+    "@types/react": "^18.0.0",
+    "@types/react-dom": "^18.0.0",
+    "typescript": "^5.0.0",
+    "eslint": "^8.0.0",
+    "prettier": "^3.0.0"
+  },
+  "keywords": [
+    "shopify",
+    "ai",
+    "blog",
+    "content",
+    "seo",
+    "generator",
+    "gemini",
+    "pexels"
+  ],
+  "author": "Your Name",
+  "license": "MIT"
+}
+
+
+

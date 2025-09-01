@@ -102,8 +102,3 @@ After publishing, merchant sees:
 - Advanced SEO optimization tools
 
 
-
-
-
-
-

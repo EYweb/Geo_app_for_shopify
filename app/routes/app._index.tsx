@@ -16,7 +16,8 @@ import {
 } from "@shopify/polaris";
 import { PlusIcon, BlogIcon, AnalyticsIcon, SettingsIcon } from "@shopify/polaris-icons";
 import { authenticate } from "../shopify.server";
-import { supabase } from "../config/supabase";
+import { db, COLLECTIONS } from "../config/firebase";
+import { collection, query, where, orderBy, limit, getDocs, doc, getDoc } from 'firebase/firestore';
 
 export const loader = async ({ request }: LoaderFunctionArgs) => {
   const { admin, session } = await authenticate.admin(request);
@@ -24,47 +25,57 @@ export const loader = async ({ request }: LoaderFunctionArgs) => {
   // Get shop domain for database queries
   const shop = session.shop;
   
-  // Fetch user's token balance and subscription
-  const { data: userData } = await supabase
-    .from('users')
-    .select('tokens_remaining, subscription_plan')
-    .eq('shop_domain', shop)
-    .single();
+  try {
+    // Fetch user's token balance and subscription
+    const userDocRef = doc(db, COLLECTIONS.USERS, shop);
+    const userDoc = await getDoc(userDocRef);
+    const userData = userDoc.exists() ? userDoc.data() : { tokens_remaining: 0, subscription_plan: 'free' };
 
-  // Fetch recent articles
-  const { data: articles } = await supabase
-    .from('articles')
-    .select('*')
-    .eq('shop_domain', shop)
-    .order('created_at', { ascending: false })
-    .limit(5);
+    // Fetch recent articles
+    const articlesQuery = query(
+      collection(db, COLLECTIONS.ARTICLES),
+      where('shop_domain', '==', shop),
+      orderBy('created_at', 'desc'),
+      limit(5)
+    );
+    const articlesSnapshot = await getDocs(articlesQuery);
+    const articles = articlesSnapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
 
-  // Fetch Shopify blog articles
-  const shopifyArticles = await admin.graphql(`
-    query {
-      articles(first: 10) {
-        edges {
-          node {
-            id
-            title
-            handle
-            publishedAt
-            seo {
+    // Fetch Shopify blog articles
+    const shopifyArticles = await admin.graphql(`
+      query {
+        articles(first: 10) {
+          edges {
+            node {
+              id
               title
-              description
+              handle
+              publishedAt
+              seo {
+                title
+                description
+              }
             }
           }
         }
       }
-    }
-  `);
+    `);
 
-  return json({ 
-    userData: userData || { tokens_remaining: 0, subscription_plan: 'free' },
-    articles: articles || [],
-    shopifyArticles: shopifyArticles.data.articles.edges,
-    shop
-  });
+    return json({ 
+      userData: userData || { tokens_remaining: 0, subscription_plan: 'free' },
+      articles: articles || [],
+      shopifyArticles: shopifyArticles.data.articles.edges,
+      shop
+    });
+  } catch (error) {
+    console.error('Error loading data:', error);
+    return json({ 
+      userData: { tokens_remaining: 0, subscription_plan: 'free' },
+      articles: [],
+      shopifyArticles: [],
+      shop
+    });
+  }
 };
 
 export default function Index() {
@@ -205,10 +216,5 @@ export default function Index() {
     </Page>
   );
 }
-
-
-
-
-
 
 

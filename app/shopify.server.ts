@@ -45,8 +45,3 @@ export default shopify;
 export const authenticate = shopify.authenticate;
 
 
-
-
-
-
-

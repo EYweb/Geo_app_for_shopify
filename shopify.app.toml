@@ -1,6 +1,6 @@
 name = "AI Blog Content Generator"
-client_id = ""
-application_url = "https://your-app-url.com"
+client_id = "362bd33ead340c7aca3a5b1b11571369"
+application_url = "https://eyweb-dev.myshopify.com"
 embedded = true
 
 [access_scopes]

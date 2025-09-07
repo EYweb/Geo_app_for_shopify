@@ -2,7 +2,7 @@
 
 client_id = "362bd33ead340c7aca3a5b1b11571369"
 name = "AI Blog Post Generator "
-application_url = "https://example.com/"
+application_url = "https://graphs-cups-addition-flu.trycloudflare.com"
 embedded = true
 handle = "ai-blog-post-generator-1"
 
@@ -10,7 +10,9 @@ handle = "ai-blog-post-generator-1"
 api_version = "2025-07"
 
 [auth]
-redirect_urls = [ "https://example.com/api/auth" ]
+redirect_urls = [ "https://graphs-cups-addition-flu.trycloudflare.com/api/auth" ]
 
 [pos]
 embedded = false
+
+[build]

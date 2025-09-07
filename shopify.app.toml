@@ -1,27 +1,16 @@
-name = "AI Blog Content Generator"
+# Learn more about configuring your app at https://shopify.dev/docs/apps/tools/cli/configuration
+
 client_id = "362bd33ead340c7aca3a5b1b11571369"
-application_url = "https://eyweb-dev.myshopify.com"
+name = "AI Blog Post Generator "
+application_url = "https://matches-drivers-rid-minimal.trycloudflare.com"
 embedded = true
-
-[access_scopes]
-# Read and write access to blog articles and themes
-scopes = "write_products,read_products,write_script_tags,read_script_tags,write_themes,read_themes,write_articles,read_articles"
-
-[auth]
-redirect_urls = [
-  "https://your-app-url.com/auth/callback",
-  "https://your-app-url.com/auth/shopify/callback",
-  "https://your-app-url.com/api/auth/callback"
-]
+handle = "ai-blog-post-generator-1"
 
 [webhooks]
-api_version = "2023-10"
+api_version = "2025-07"
+
+[auth]
+redirect_urls = [ "https://matches-drivers-rid-minimal.trycloudflare.com/api/auth" ]
 
 [pos]
 embedded = false
-
-[build]
-automatically_update_urls_on_dev = true
-dev_store_url = "your-dev-store.myshopify.com"
-
-

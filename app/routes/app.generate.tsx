@@ -6,8 +6,9 @@ import {
   Card,
   Button,
   Text,
-  Stack,
-  Heading,
+  BlockBlockStack,
+  InlineBlockStack,
+  Text as Heading,
   TextField,
   Select,
   ChoiceList,
@@ -253,7 +254,7 @@ export default function Generate() {
       <Layout>
         <Layout.Section>
           <Card>
-            <Stack vertical spacing="loose">
+            <BlockStack vertical spacing="loose">
               <Heading>Content Generation Form</Heading>
               
               {actionData?.error && (
@@ -269,7 +270,7 @@ export default function Generate() {
               )}
 
               <Form method="post">
-                <Stack vertical spacing="loose">
+                <BlockStack vertical spacing="loose">
                   <TextField
                     label="Main Topic"
                     name="mainTopic"
@@ -338,23 +339,23 @@ export default function Generate() {
                   >
                     {isGenerating ? "Generating..." : `Generate ${numberOfPosts} Post${parseInt(numberOfPosts) > 1 ? 's' : ''}`}
                   </Button>
-                </Stack>
+                </BlockStack>
               </Form>
-            </Stack>
+            </BlockStack>
           </Card>
         </Layout.Section>
 
         {actionData?.success && (
           <Layout.Section>
             <Card title="Generated Posts">
-              <Stack vertical spacing="loose">
+              <BlockStack vertical spacing="loose">
                 {actionData.posts.map((post: any, index: number) => (
                   <Card key={post.id} sectioned>
-                    <Stack vertical spacing="tight">
-                      <Stack distribution="equalSpacing" alignment="center">
+                    <BlockStack vertical spacing="tight">
+                      <BlockStack distribution="equalSpacing" alignment="center">
                         <Heading>{post.title}</Heading>
                         <Badge status="success">Generated</Badge>
-                      </Stack>
+                      </BlockStack>
                       
                       {post.image_url && (
                         <Thumbnail
@@ -368,7 +369,7 @@ export default function Generate() {
                         {post.meta_description}
                       </Text>
                       
-                      <Stack>
+                      <BlockStack>
                         <Button onClick={() => handlePreview(post)}>
                           Preview
                         </Button>
@@ -378,11 +379,11 @@ export default function Generate() {
                         <Button onClick={() => handlePublish(post, 'hidden')}>
                           Save as Draft
                         </Button>
-                      </Stack>
-                    </Stack>
+                      </BlockStack>
+                    </BlockStack>
                   </Card>
                 ))}
-              </Stack>
+              </BlockStack>
             </Card>
           </Layout.Section>
         )}

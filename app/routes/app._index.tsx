@@ -7,14 +7,15 @@ import {
   Button,
   Text,
   Badge,
-  Stack,
-  Heading,
+  BlockBlockStack,
+  InlineBlockStack,
+  Text as Heading,
   DataTable,
   EmptyState,
   Icon,
   ProgressBar,
 } from "@shopify/polaris";
-import { PlusIcon, BlogIcon, AnalyticsIcon, SettingsIcon } from "@shopify/polaris-icons";
+import { PlusIcon, BlogIcon, ViewIcon, SettingsIcon } from "@shopify/polaris-icons";
 import { authenticate } from "../shopify.server";
 import { db, COLLECTIONS } from "../config/firebase";
 import { collection, query, where, orderBy, limit, getDocs, doc, getDoc } from 'firebase/firestore';
@@ -119,25 +120,25 @@ export default function Index() {
         {/* Token Usage Card */}
         <Layout.Section>
           <Card>
-            <Stack distribution="equalSpacing" alignment="center">
-              <Stack vertical spacing="tight">
+            <BlockStack distribution="equalSpacing" alignment="center">
+              <BlockStack vertical spacing="tight">
                 <Heading>Welcome to AI Blog Generator</Heading>
                 <Text as="p" variant="bodyMd">
                   Create SEO and AI search optimized blog posts that drive organic traffic
                 </Text>
-              </Stack>
-              <Stack vertical spacing="tight" alignment="trailing">
+              </BlockStack>
+              <BlockStack vertical spacing="tight" alignment="trailing">
                 <Text variant="headingMd" as="h3">
                   {getPlanDisplayName(userData.subscription_plan)}
                 </Text>
                 <Text as="p" variant="bodyMd">
                   {userData.tokens_remaining} tokens remaining
                 </Text>
-              </Stack>
-            </Stack>
+              </BlockStack>
+            </BlockStack>
             
             <div style={{ marginTop: '1rem' }}>
-              <Stack vertical spacing="tight">
+              <BlockStack vertical spacing="tight">
                 <Text variant="bodyMd">Token Usage</Text>
                 <ProgressBar 
                   progress={usagePercentage} 
@@ -147,7 +148,7 @@ export default function Index() {
                 <Text variant="bodySm" color="subdued">
                   {tokenUsage} of {tokenLimit} tokens used
                 </Text>
-              </Stack>
+              </BlockStack>
             </div>
           </Card>
         </Layout.Section>
@@ -180,36 +181,36 @@ export default function Index() {
         {/* Quick Actions */}
         <Layout.Section secondary>
           <Card title="Quick Actions">
-            <Stack vertical spacing="loose">
+            <BlockStack vertical spacing="loose">
               <Button url="/app/generate" icon={PlusIcon} fullWidth>
                 Generate New Post
               </Button>
-              <Button url="/app/analytics" icon={AnalyticsIcon} fullWidth>
+              <Button url="/app/analytics" icon={ViewIcon} fullWidth>
                 View Analytics
               </Button>
               <Button url="/app/settings" icon={SettingsIcon} fullWidth>
                 App Settings
               </Button>
-            </Stack>
+            </BlockStack>
           </Card>
 
           {/* Subscription Info */}
           <Card title="Subscription">
-            <Stack vertical spacing="loose">
-              <Stack distribution="equalSpacing">
+            <BlockStack vertical spacing="loose">
+              <BlockStack distribution="equalSpacing">
                 <Text variant="bodyMd">Current Plan:</Text>
                 <Badge status="success">{getPlanDisplayName(userData.subscription_plan)}</Badge>
-              </Stack>
-              <Stack distribution="equalSpacing">
+              </BlockStack>
+              <BlockStack distribution="equalSpacing">
                 <Text variant="bodyMd">Tokens:</Text>
                 <Text variant="bodyMd">{userData.tokens_remaining} remaining</Text>
-              </Stack>
+              </BlockStack>
               {userData.subscription_plan === 'free' && (
                 <Button url="/app/upgrade" primary fullWidth>
                   Upgrade Plan
                 </Button>
               )}
-            </Stack>
+            </BlockStack>
           </Card>
         </Layout.Section>
       </Layout>

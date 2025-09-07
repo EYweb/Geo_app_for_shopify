@@ -5,8 +5,9 @@ import {
   Layout,
   Card,
   Text,
-  Stack,
-  Heading,
+  BlockBlockStack,
+  InlineBlockStack,
+  Text as Heading,
   DataTable,
   EmptyState,
   Badge,
@@ -109,22 +110,22 @@ export default function Analytics() {
         {/* Overview Cards */}
         <Layout.Section>
           <Card>
-            <Stack distribution="equalSpacing" alignment="center">
-              <Stack vertical spacing="tight">
+            <BlockStack distribution="equalSpacing" alignment="center">
+              <BlockStack vertical spacing="tight">
                 <Heading>Content Overview</Heading>
                 <Text as="p" variant="bodyMd">
                   Track your blog content performance and usage statistics
                 </Text>
-              </Stack>
-              <Stack vertical spacing="tight" alignment="trailing">
+              </BlockStack>
+              <BlockStack vertical spacing="tight" alignment="trailing">
                 <Text variant="headingMd" as="h3">
                   {getPlanDisplayName(userData.subscription_plan)}
                 </Text>
                 <Text as="p" variant="bodyMd">
                   {userData.tokens_remaining} tokens remaining
                 </Text>
-              </Stack>
-            </Stack>
+              </BlockStack>
+            </BlockStack>
           </Card>
         </Layout.Section>
 
@@ -133,31 +134,31 @@ export default function Analytics() {
           <Layout>
             <Layout.Section oneThird>
               <Card sectioned>
-                <Stack vertical spacing="tight">
+                <BlockStack vertical spacing="tight">
                   <Text variant="headingMd" as="h3">Total Posts</Text>
                   <Text variant="headingLg" as="h2">{analytics.totalPosts}</Text>
                   <Text variant="bodySm" color="subdued">All generated content</Text>
-                </Stack>
+                </BlockStack>
               </Card>
             </Layout.Section>
 
             <Layout.Section oneThird>
               <Card sectioned>
-                <Stack vertical spacing="tight">
+                <BlockStack vertical spacing="tight">
                   <Text variant="headingMd" as="h3">Published</Text>
                   <Text variant="headingLg" as="h2">{analytics.publishedPosts}</Text>
                   <Text variant="bodySm" color="subdued">Live on your blog</Text>
-                </Stack>
+                </BlockStack>
               </Card>
             </Layout.Section>
 
             <Layout.Section oneThird>
               <Card sectioned>
-                <Stack vertical spacing="tight">
+                <BlockStack vertical spacing="tight">
                   <Text variant="headingMd" as="h3">Drafts</Text>
                   <Text variant="headingLg" as="h2">{analytics.draftPosts}</Text>
                   <Text variant="bodySm" color="subdued">Saved for later</Text>
-                </Stack>
+                </BlockStack>
               </Card>
             </Layout.Section>
           </Layout>
@@ -166,11 +167,11 @@ export default function Analytics() {
         {/* Token Usage */}
         <Layout.Section>
           <Card title="Token Usage">
-            <Stack vertical spacing="loose">
-              <Stack distribution="equalSpacing">
+            <BlockStack vertical spacing="loose">
+              <BlockStack distribution="equalSpacing">
                 <Text variant="bodyMd">Usage Progress</Text>
                 <Text variant="bodyMd">{analytics.tokensUsed} of {analytics.tokenLimit} tokens used</Text>
-              </Stack>
+              </BlockStack>
               <ProgressBar 
                 progress={analytics.usagePercentage} 
                 size="small"
@@ -179,7 +180,7 @@ export default function Analytics() {
               <Text variant="bodySm" color="subdued">
                 {analytics.usagePercentage.toFixed(1)}% of your plan's token limit used
               </Text>
-            </Stack>
+            </BlockStack>
           </Card>
         </Layout.Section>
 
@@ -219,15 +220,15 @@ export default function Analytics() {
         {/* Performance Insights */}
         <Layout.Section secondary>
           <Card title="Performance Insights">
-            <Stack vertical spacing="loose">
-              <Stack vertical spacing="tight">
+            <BlockStack vertical spacing="loose">
+              <BlockStack vertical spacing="tight">
                 <Text variant="headingMd" as="h3">Content Generation</Text>
                 <Text variant="bodyMd">
                   You've generated {analytics.totalPosts} articles so far.
                 </Text>
-              </Stack>
+              </BlockStack>
               
-              <Stack vertical spacing="tight">
+              <BlockStack vertical spacing="tight">
                 <Text variant="headingMd" as="h3">Publishing Rate</Text>
                 <Text variant="bodyMd">
                   {analytics.totalPosts > 0 
@@ -235,9 +236,9 @@ export default function Analytics() {
                     : 'No content generated yet'
                   }
                 </Text>
-              </Stack>
+              </BlockStack>
 
-              <Stack vertical spacing="tight">
+              <BlockStack vertical spacing="tight">
                 <Text variant="headingMd" as="h3">Token Efficiency</Text>
                 <Text variant="bodyMd">
                   {analytics.tokensUsed > 0 
@@ -245,21 +246,21 @@ export default function Analytics() {
                     : 'No tokens used yet'
                   }
                 </Text>
-              </Stack>
-            </Stack>
+              </BlockStack>
+            </BlockStack>
           </Card>
 
           {/* Upgrade Card */}
           {userData.subscription_plan === 'free' && (
             <Card title="Upgrade Your Plan">
-              <Stack vertical spacing="loose">
+              <BlockStack vertical spacing="loose">
                 <Text variant="bodyMd">
                   Get more tokens and advanced features to scale your content creation.
                 </Text>
                 <Button url="/app/upgrade" primary fullWidth>
                   Upgrade Now
                 </Button>
-              </Stack>
+              </BlockStack>
             </Card>
           )}
         </Layout.Section>
